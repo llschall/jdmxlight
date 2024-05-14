@@ -7,7 +7,7 @@ public class JDmxLightTest {
 
     @Test
     public void testSetup() {
-        Assertions.assertFalse(!JDmxLight.VERSION.isBlank());
+        Assertions.assertFalse(JDmxLight.VERSION.isBlank());
     }
 
 }
