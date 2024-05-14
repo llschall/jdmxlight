@@ -1,8 +1,7 @@
-package test.java.org.llschall.jdmxlight;
+package org.llschall.jdmxlight;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.llschall.jdmxlight.JDmxLight;
 
 public class JDmxLightTest {
 
