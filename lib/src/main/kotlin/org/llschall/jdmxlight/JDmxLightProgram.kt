@@ -7,19 +7,19 @@ import org.llschall.ardwloop.structure.data.SetupData
 import java.util.concurrent.atomic.AtomicInteger
 
 class JDmxLightProgram : IArdwProgram {
-    var x: AtomicInteger? = null
-    var y: AtomicInteger? = null
-    var z: AtomicInteger? = null
+    var x: AtomicInteger = AtomicInteger(0)
+    var y: AtomicInteger = AtomicInteger(0)
+    var z: AtomicInteger = AtomicInteger(0)
 
     override fun ardwSetup(setupData: SetupData): SetupData {
         return SetupData(
-            SerialData(0, 0, 0, x!!.get(), y!!.get(), z!!.get())
+            SerialData(0, 0, 0, x.get(), y.get(), z.get())
         )
     }
 
     override fun ardwLoop(loopData: LoopData): LoopData {
         return LoopData(
-            SerialData(0, 0, 0, x!!.get(), y!!.get(), z!!.get())
+            SerialData(0, 0, 0, x.get(), y.get(), z.get())
         )
     }
 
