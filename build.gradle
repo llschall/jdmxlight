@@ -1,5 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'maven-publish'
+    id 'signing'
 }
 
 group = 'io.github.llschall'
@@ -16,6 +18,65 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
 kotlin {
     jvmToolchain(21)
+}
+
+boolean publish = project.hasProperty('ossrh_user')
+
+if (!publish) {
+    println('=== Publish skipped because no credential is provided. ===')
+}
+
+publishing {
+    if (publish) {
+        publications {
+            jdmxlight(MavenPublication) {
+                from components.java
+
+                groupId = 'io.github.llschall'
+                artifactId = 'jdmxlight'
+                version = '0.0.1-SNAPSHOT'
+
+                pom {
+                    signing {
+                        sign publishing.publications.jdmxlight
+                        sign configurations.archives
+                    }
+                    name = 'jdmxlight'
+                    description = 'jdmxlight enables to control DMX lights from any Java program, using an Arduino board.'
+                    url = 'https://github.com/llschall/jdmxlight'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'llschall'
+                            name = 'Laurent Schall'
+                            email = 'llschall@gmx.com'
+                        }
+                    }
+                    scm {
+                        url = 'https://github.com/llschall/jdmxlight.git'
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                credentials {
+                    username "$ossrh_user"
+                    password "$ossrh_pwd"
+                }
+                url "https://s01.oss.sonatype.org/content/repositories/snapshots"
+            }
+        }
+        signing {
+            sign publishing.publications.jdmxlight
+        }
+    }
 }
