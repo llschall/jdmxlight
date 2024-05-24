@@ -2,16 +2,20 @@ package org.llschall.jdmxlight
 
 import org.llschall.ardwloop.ArdwloopStarter
 
-class JDmxLightStarter {
-    val program: JDmxLightProgram = JDmxLightProgram()
+class JDmxLightStarter(var max: Int) {
+
+    val program: JDmxLightProgram = JDmxLightProgram(max)
 
     fun start() {
         ArdwloopStarter.get().start(program)
     }
 
-    fun update(x: Int, y: Int, z: Int) {
-        program.x!!.set(x)
-        program.y!!.set(y)
-        program.z!!.set(z)
+    fun update(channel: Int, value: Int) {
+        program.update(channel, value);
     }
+
+    fun get(channel: Int): Int {
+        return program.channel(channel);
+    }
+
 }

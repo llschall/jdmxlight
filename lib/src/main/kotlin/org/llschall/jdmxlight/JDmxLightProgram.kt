@@ -6,20 +6,29 @@ import org.llschall.ardwloop.structure.data.SerialData
 import org.llschall.ardwloop.structure.data.SetupData
 import java.util.concurrent.atomic.AtomicInteger
 
-class JDmxLightProgram : IArdwProgram {
-    var x: AtomicInteger = AtomicInteger(0)
-    var y: AtomicInteger = AtomicInteger(0)
-    var z: AtomicInteger = AtomicInteger(0)
+class JDmxLightProgram(private val max: Int, private var i: Int = 0) : IArdwProgram {
+
+    private val values: Array<Int> = Array<Int>(512) { -1 }
+
 
     override fun ardwSetup(setupData: SetupData): SetupData {
         return SetupData(
-            SerialData(0, 0, 0, x.get(), y.get(), z.get())
+            SerialData(0, 0, 0, max, 0, 0)
         )
     }
 
     override fun ardwLoop(loopData: LoopData): LoopData {
+
+        val channel = i
+        val value = values[i]
+
+        i++
+        if (i > max) {
+            i = 0
+        }
+
         return LoopData(
-            SerialData(0, 0, 0, x.get(), y.get(), z.get())
+            SerialData(0, 0, 0, channel, value, 0)
         )
     }
 
@@ -37,5 +46,13 @@ class JDmxLightProgram : IArdwProgram {
 
     override fun getPostDelayMs(): Int {
         return 9999
+    }
+
+    fun update(channel: Int, value: Int) {
+        values[channel] = value;
+    }
+
+    fun channel(channel: Int): Int {
+        return values[channel];
     }
 }
