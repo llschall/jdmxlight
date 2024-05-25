@@ -15,7 +15,7 @@ public class ProgramTest {
 
         int max = 12;
 
-        JDmxLightProgram program = new JDmxLightProgram(max, 0);
+        JDmxLightProgram program = new JDmxLightProgram(max);
 
         SerialVector a = program.ardwSetup(
                 new SetupData(new SerialData(0, 0, 0, 0, 0, 0))

@@ -6,7 +6,7 @@ import org.llschall.ardwloop.structure.data.SerialData
 import org.llschall.ardwloop.structure.data.SetupData
 import java.util.concurrent.atomic.AtomicInteger
 
-class JDmxLightProgram(private val max: Int, private var channel: Int = 0) : IArdwProgram {
+class JDmxLightProgram(private val max: Int) : IArdwProgram {
 
     var i = 0
 
