@@ -28,17 +28,23 @@ public class ProgramTest {
         assertEquals(-1, a.v);
         assertEquals(-1, a.x);
         assertEquals(-1, a.y);
-
+        assertEquals(0, program.channel(0));
+        assertEquals(0, program.channel(8));
+        
         program.update(8, 20);
         a = program.ardwLoop(loopData).getData().a;
         assertEquals(0, a.v);
         assertEquals(8, a.x);
         assertEquals(20, a.y);
+        assertEquals(0, program.channel(0));
+        assertEquals(20, program.channel(8));
 
         a = program.ardwLoop(loopData).getData().a;
         assertEquals(-1, a.v);
         assertEquals(-1, a.x);
         assertEquals(-1, a.y);
+        assertEquals(0, program.channel(0));
+        assertEquals(20, program.channel(8));
     }
 
 }

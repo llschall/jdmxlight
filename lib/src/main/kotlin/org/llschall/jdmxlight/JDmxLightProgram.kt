@@ -10,7 +10,8 @@ class JDmxLightProgram(private val max: Int) : IArdwProgram {
 
     var i = 0
 
-    private val values: Array<AtomicInteger> = Array(512) { AtomicInteger(-1) }
+    private val values: Array<AtomicInteger> = Array(512) { AtomicInteger(0) }
+    private val buffer: Array<AtomicInteger> = Array(512) { AtomicInteger(-1) }
 
     override fun ardwSetup(setupData: SetupData): SetupData {
 
@@ -22,7 +23,7 @@ class JDmxLightProgram(private val max: Int) : IArdwProgram {
     override fun ardwLoop(loopData: LoopData): LoopData {
 
         while (i <= max) {
-            val value = values[i].getAndSet(-1)
+            val value = buffer[i].getAndSet(-1)
             if (value != -1) {
                 val channel = i
                 i++
@@ -53,7 +54,8 @@ class JDmxLightProgram(private val max: Int) : IArdwProgram {
     }
 
     fun update(channel: Int, value: Int) {
-        values[channel].set(value);
+        values[channel].set(value)
+        buffer[channel].set(value)
     }
 
     fun channel(channel: Int): Int {
