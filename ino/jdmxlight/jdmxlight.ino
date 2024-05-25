@@ -25,6 +25,13 @@ void setup() {
 void loop() {
   ardw_loop();
 
+  int v = ardw_r()->a.v;
+  
+  if(v==-1) {
+    delay(30);
+    return;
+  }
+ 
   int channel = ardw_r()->a.x;
   int value = ardw_r()->a.y;
 
