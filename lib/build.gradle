@@ -17,7 +17,7 @@ plugins {
 }
 
 group = 'io.github.llschall'
-version = '0.0.2-SNAPSHOT'
+version = '0.0.2'
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -38,6 +38,8 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+    withJavadocJar()
+    withSourcesJar()
 }
 
 tasks.named('test') {
@@ -94,7 +96,7 @@ publishing {
                     username "$ossrh_user"
                     password "$ossrh_pwd"
                 }
-                url "https://s01.oss.sonatype.org/content/repositories/snapshots"
+                url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
             }
         }
         signing {
