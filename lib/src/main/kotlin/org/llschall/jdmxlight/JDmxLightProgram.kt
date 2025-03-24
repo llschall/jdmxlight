@@ -1,9 +1,7 @@
 package org.llschall.jdmxlight
 
 import org.llschall.ardwloop.IArdwProgram
-import org.llschall.ardwloop.structure.data.LoopData
-import org.llschall.ardwloop.structure.data.SerialData
-import org.llschall.ardwloop.structure.data.SetupData
+import org.llschall.ardwloop.value.SerialData
 import java.util.concurrent.atomic.AtomicInteger
 
 class JDmxLightProgram(private val max: Int) : IArdwProgram {
@@ -13,36 +11,25 @@ class JDmxLightProgram(private val max: Int) : IArdwProgram {
     private val values: Array<AtomicInteger> = Array(512) { AtomicInteger(0) }
     private val buffer: Array<AtomicInteger> = Array(512) { AtomicInteger(-1) }
 
-    override fun ardwSetup(setupData: SetupData): SetupData {
+    override fun ardwSetup(data: SerialData): SerialData {
 
-        return SetupData(
-            SerialData(0, 0, 0, max, 0, 0)
-        )
+        return SerialData(0, 0, max, 0, 0)
     }
 
-    override fun ardwLoop(loopData: LoopData): LoopData {
+    override fun ardwLoop(loopData: SerialData): SerialData {
 
         while (i <= max) {
             val value = buffer[i].getAndSet(-1)
             if (value != -1) {
                 val channel = i
                 i++
-                return LoopData(
-                    SerialData(0, 0, 0, channel, value, 0)
-                )
+                return SerialData(0, 0, channel, value, 0)
+
             }
             i++
         }
         i = 0;
-        return LoopData(SerialData(-1, -1, -1, -1, -1, -1))
-    }
-
-    override fun getRc(): Int {
-        return 1
-    }
-
-    override fun getSc(): Int {
-        return 1
+        return SerialData(-1, -1, -1, -1, -1)
     }
 
     override fun getReadDelayMs(): Int {

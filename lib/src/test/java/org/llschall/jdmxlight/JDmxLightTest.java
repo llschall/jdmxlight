@@ -11,7 +11,7 @@ public class JDmxLightTest {
     @Test
     public void testSetup() {
         assertEquals(1000, JDmxLight.VERSION_INT);
-        assertEquals("0.1.2", ArdwloopStarter.ARDWLOOP_VERSION);
+        assertEquals("0.3.2", ArdwloopStarter.VERSION);
     }
 
     @Test

@@ -7,7 +7,7 @@ class JDmxLightStarter(var max: Int) {
     val program: JDmxLightProgram = JDmxLightProgram(max)
 
     fun start() {
-        ArdwloopStarter.get().start(program)
+        ArdwloopStarter.get().start(program, 9600)
     }
 
     fun update(channel: Int, value: Int) {

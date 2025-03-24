@@ -10,7 +10,7 @@ void setup() {
 
   DmxSimple.usePin(4);
 
-  ardw_setup();
+  ardw_setup(9600);
 
   int max = ardw_r()->a.x;
 
