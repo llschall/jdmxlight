@@ -7,16 +7,18 @@ class JDmxLightStarter(var max: Int) {
 
     val program: JDmxLightProgram = JDmxLightProgram(max)
 
-    fun start() {
-        ArdwloopStarter.get().start(program, IArdwConfig.BAUD_38400)
+    fun start(selector: DefaultUsbSelector) {
+        val starter = ArdwloopStarter.get()
+        starter.setSelector(SelectorAdapter(selector))
+        starter.start(program, IArdwConfig.BAUD_9600)
     }
 
     fun update(channel: Int, value: Int) {
-        program.update(channel, value);
+        program.update(channel, value)
     }
 
     fun get(channel: Int): Int {
-        return program.channel(channel);
+        return program.channel(channel)
     }
 
 }

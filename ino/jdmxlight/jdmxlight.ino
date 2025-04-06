@@ -1,5 +1,8 @@
 
+// Use version 3.1
 #include <DmxSimple.h>
+
+// Use version 0.3.3
 #include <Ardwloop.h>
 
 void setup() {
@@ -10,7 +13,7 @@ void setup() {
 
   DmxSimple.usePin(4);
 
-  ardw_setup(BAUD_38400);
+  ardw_setup(BAUD_9600);
 
   int max = ardw_r()->a.x;
 

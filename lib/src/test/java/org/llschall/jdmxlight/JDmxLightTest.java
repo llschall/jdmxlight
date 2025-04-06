@@ -4,14 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.llschall.ardwloop.ArdwloopStarter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class JDmxLightTest {
 
     @Test
     public void testSetup() {
         assertEquals(1000, JDmxLight.VERSION_INT);
-        assertEquals("0.3.2", ArdwloopStarter.VERSION);
+        assertEquals("0.3.3", ArdwloopStarter.VERSION);
     }
 
     @Test
