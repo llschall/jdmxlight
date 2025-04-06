@@ -17,7 +17,7 @@ plugins {
 }
 
 group = 'io.github.llschall'
-version = '0.0.3-SNAPSHOT'
+version = '0.0.3'
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -47,7 +47,7 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-boolean publish = project.hasProperty('ossrh_user')
+boolean publish = project.hasProperty('token_usr')
 
 if (!publish) {
     println('=== Publish skipped because no credential is provided. ===')
@@ -93,10 +93,10 @@ publishing {
         repositories {
             maven {
                 credentials {
-                    username "$ossrh_user"
-                    password "$ossrh_pwd"
+                    username "$token_usr"
+                    password "$token_pwd"
                 }
-                url "https://s01.oss.sonatype.org/content/repositories/snapshots"
+                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
             }
         }
         signing {
