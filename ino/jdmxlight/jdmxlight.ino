@@ -11,12 +11,11 @@ void setup() {
   pinMode(2, OUTPUT);
   digitalWrite(2, HIGH);
 
-  DmxSimple.usePin(4);
-
   ardw_setup(BAUD_9600);
 
   int max = ardw_r()->a.x;
 
+  DmxSimple.usePin(4);
   DmxSimple.maxChannel(max);
 
   for (int i = 1; i <= max; i++) {

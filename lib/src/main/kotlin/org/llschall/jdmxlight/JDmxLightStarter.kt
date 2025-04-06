@@ -14,10 +14,16 @@ class JDmxLightStarter(var max: Int) {
     }
 
     fun update(channel: Int, value: Int) {
+        if (channel < 1 || channel > max) {
+            throw IllegalArgumentException("Channel must be between 1 and $max")
+        }
         program.update(channel, value)
     }
 
     fun get(channel: Int): Int {
+        if (channel < 1 || channel > max) {
+            throw IllegalArgumentException("Channel must be between 1 and $max")
+        }
         return program.channel(channel)
     }
 

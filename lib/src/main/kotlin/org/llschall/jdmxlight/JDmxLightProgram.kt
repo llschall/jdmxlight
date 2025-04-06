@@ -8,8 +8,8 @@ class JDmxLightProgram(private val max: Int) : IArdwProgram {
 
     var i = 0
 
-    private val values: Array<AtomicInteger> = Array(512) { AtomicInteger(0) }
-    private val buffer: Array<AtomicInteger> = Array(512) { AtomicInteger(-1) }
+    private val channels: Array<AtomicInteger> = Array(512) { AtomicInteger(0) }
+    private val buffer: Array<AtomicInteger> = Array(max) { AtomicInteger(-1) }
 
     override fun ardwSetup(data: SerialData): SerialData {
 
@@ -18,13 +18,13 @@ class JDmxLightProgram(private val max: Int) : IArdwProgram {
 
     override fun ardwLoop(loopData: SerialData): SerialData {
 
-        while (i <= max) {
+        while (i < max) {
+            val channel = i+1
             val value = buffer[i].getAndSet(-1)
             if (value != -1) {
-                val channel = i
+                channels[i].set(value)
                 i++
                 return SerialData(0, 0, channel, value, 0)
-
             }
             i++
         }
@@ -36,16 +36,11 @@ class JDmxLightProgram(private val max: Int) : IArdwProgram {
         return 20
     }
 
-    override fun getPostDelayMs(): Int {
-        return 9999
-    }
-
     fun update(channel: Int, value: Int) {
-        values[channel].set(value)
-        buffer[channel].set(value)
+        buffer[channel-1].set(value)
     }
 
     fun channel(channel: Int): Int {
-        return values[channel].get();
+        return channels[channel-1].get();
     }
 }
