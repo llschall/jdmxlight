@@ -1,5 +1,5 @@
 
-// Use version 3.1
+// Use version 3.1.0
 #include <DmxSimple.h>
 
 // Use version 0.3.3
